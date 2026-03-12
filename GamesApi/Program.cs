@@ -42,3 +42,7 @@ app.MapPost("/games", async (
 });
 
 app.Run();
+
+public partial class Program
+{
+}
