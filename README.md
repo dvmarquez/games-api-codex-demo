@@ -24,7 +24,7 @@ dotnet run
 
 The API starts on a local URL (for example, `http://localhost:5000` or `https://localhost:7000`).
 
-## Endpoint
+## Endpoints
 
 ### `GET /games`
 
@@ -52,4 +52,29 @@ Example response:
     "platform": "Nintendo Switch"
   }
 ]
+```
+
+
+### `GET /games/{id}`
+
+Returns a single game matching the provided `id`.
+
+- Returns `200 OK` with the game when found
+- Returns `404 Not Found` when the game does not exist
+
+Example:
+
+```bash
+curl http://localhost:5000/games/3
+```
+
+Example response:
+
+```json
+{
+  "id": 3,
+  "title": "God of War Ragnarök",
+  "genre": "Action",
+  "platform": "PlayStation 5"
+}
 ```
