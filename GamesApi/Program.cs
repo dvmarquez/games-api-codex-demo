@@ -12,6 +12,12 @@ var games = new[]
 
 app.MapGet("/games", () => Results.Ok(games));
 
+app.MapGet("/games/{id:int}", (int id) =>
+{
+    var game = games.FirstOrDefault(g => g.Id == id);
+    return game is null ? Results.NotFound() : Results.Ok(game);
+});
+
 app.Run();
 
 internal sealed record Game(int Id, string Title, string Genre, string Platform);
