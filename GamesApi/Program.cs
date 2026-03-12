@@ -2,8 +2,13 @@ using GamesApi;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IGameService, InMemoryGameService>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapGet("/games", (IGameService gameService) => Results.Ok(gameService.GetAll()));
 
