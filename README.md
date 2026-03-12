@@ -143,7 +143,7 @@ Content-Type: application/problem+json; charset=utf-8
 ## Run tests
 
 ```bash
-dotnet test GamesApi/GamesApi.csproj
+dotnet test GamesApi.Tests/GamesApi.Tests.csproj
 ```
 
-This project currently has no test project, so this command verifies restore/build and reports zero tests.
+This runs the xUnit integration tests for the minimal API endpoints and validator-focused tests for `CreateGameRequestValidator`.
