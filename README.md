@@ -95,6 +95,51 @@ Sample response:
 HTTP/1.1 404 Not Found
 ```
 
+### `POST /games`
+
+```bash
+curl -i http://localhost:5000/games \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Celeste",
+    "genre": "Platformer",
+    "platform": "PC"
+  }'
+```
+
+Sample response:
+
+```http
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+Location: /games/6
+
+{
+  "id": 6,
+  "title": "Celeste",
+  "genre": "Platformer",
+  "platform": "PC"
+}
+```
+
+Sample validation error response:
+
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: application/problem+json; charset=utf-8
+
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": {
+    "Title": [
+      "'Title' must not be empty."
+    ]
+  }
+}
+```
+
 ## Run tests
 
 ```bash
