@@ -15,35 +15,44 @@ git clone <your-repo-url>
 cd games-api-codex-demo
 ```
 
-## Run
+## Build
+
+```bash
+dotnet build GamesApi/GamesApi.csproj
+```
+
+## Run the API
 
 ```bash
 cd GamesApi
 dotnet run
 ```
 
-The API starts on a local URL (for example, `http://localhost:5000` or `https://localhost:7000`).
+By default, ASP.NET Core prints URLs like `http://localhost:5000` or `https://localhost:7000` in the console.
 
-## Endpoints
+## Swagger / OpenAPI
+
+Swagger UI is enabled to make local testing easier.
+
+- Swagger JSON: `http://localhost:5000/swagger/v1/swagger.json`
+- Swagger UI: `http://localhost:5000/swagger`
+
+> If your app starts on a different port, replace `5000` with that port.
+
+## Test the API with curl
 
 ### `GET /games`
 
-Returns 5 in-memory games with fields:
-
-- `id`
-- `title`
-- `genre`
-- `platform`
-
-Example:
-
 ```bash
-curl http://localhost:5000/games
+curl -i http://localhost:5000/games
 ```
 
-Example response:
+Sample response:
 
-```json
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
 [
   {
     "id": 1,
@@ -54,27 +63,42 @@ Example response:
 ]
 ```
 
-
-### `GET /games/{id}`
-
-Returns a single game matching the provided `id`.
-
-- Returns `200 OK` with the game when found
-- Returns `404 Not Found` when the game does not exist
-
-Example:
+### `GET /games/1`
 
 ```bash
-curl http://localhost:5000/games/3
+curl -i http://localhost:5000/games/1
 ```
 
-Example response:
+Sample response:
 
-```json
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
 {
-  "id": 3,
-  "title": "God of War Ragnarök",
-  "genre": "Action",
-  "platform": "PlayStation 5"
+  "id": 1,
+  "title": "The Legend of Zelda: Breath of the Wild",
+  "genre": "Action-adventure",
+  "platform": "Nintendo Switch"
 }
 ```
+
+### `GET /games/999`
+
+```bash
+curl -i http://localhost:5000/games/999
+```
+
+Sample response:
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+## Run tests
+
+```bash
+dotnet test GamesApi/GamesApi.csproj
+```
+
+This project currently has no test project, so this command verifies restore/build and reports zero tests.
