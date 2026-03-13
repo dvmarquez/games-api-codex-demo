@@ -10,7 +10,7 @@ public sealed class InMemoryGameServiceTests
     {
         var service = new InMemoryGameService();
         var requests = Enumerable.Range(1, 100)
-            .Select(index => new CreateGameRequest($"Game {index}", "Action", "PC"))
+            .Select(index => new CreateGameRequest($"Game {index}", "Action", "PC", 19.99m))
             .ToArray();
 
         var tasks = requests
@@ -30,12 +30,13 @@ public sealed class InMemoryGameServiceTests
     public void Update_ReturnsUpdatedGame_WhenGameExists()
     {
         var service = new InMemoryGameService();
-        var request = new UpdateGameRequest("Updated", "Action", "PC");
+        var request = new UpdateGameRequest("Updated", "Action", "PC", 39.99m);
 
         var updatedGame = service.Update(1, request);
 
         Assert.NotNull(updatedGame);
         Assert.Equal("Updated", updatedGame.Title);
+        Assert.Equal(39.99m, updatedGame.Price);
     }
 
     [Fact]

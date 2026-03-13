@@ -1,3 +1,3 @@
 namespace GamesApi;
 
-internal sealed record Game(int Id, string Title, string Genre, string Platform);
+internal sealed record Game(int Id, string Title, string Genre, string Platform, decimal Price);

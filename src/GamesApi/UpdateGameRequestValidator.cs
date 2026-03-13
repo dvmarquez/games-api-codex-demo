@@ -17,5 +17,8 @@ internal sealed class UpdateGameRequestValidator : AbstractValidator<UpdateGameR
         RuleFor(request => request.Platform)
             .NotEmpty()
             .MaximumLength(50);
+        RuleFor(request => request.Price)
+            .NotNull()
+            .GreaterThan(0);
     }
 }
