@@ -44,4 +44,34 @@ internal sealed class InMemoryGameService : IGameService
 
         return game;
     }
+
+    public Game? Update(int id, UpdateGameRequest request)
+    {
+        lock (gamesLock)
+        {
+            var index = games.FindIndex(game => game.Id == id);
+            if (index < 0)
+            {
+                return null;
+            }
+
+            var updatedGame = new Game(id, request.Title!, request.Genre!, request.Platform!);
+            games[index] = updatedGame;
+            return updatedGame;
+        }
+    }
+
+    public bool Delete(int id)
+    {
+        lock (gamesLock)
+        {
+            var game = games.FirstOrDefault(existingGame => existingGame.Id == id);
+            if (game is null)
+            {
+                return false;
+            }
+
+            return games.Remove(game);
+        }
+    }
 }

@@ -26,4 +26,26 @@ public sealed class InMemoryGameServiceTests
 
         Assert.Equal(createdGames.Length, distinctIdCount);
     }
+    [Fact]
+    public void Update_ReturnsUpdatedGame_WhenGameExists()
+    {
+        var service = new InMemoryGameService();
+        var request = new UpdateGameRequest("Updated", "Action", "PC");
+
+        var updatedGame = service.Update(1, request);
+
+        Assert.NotNull(updatedGame);
+        Assert.Equal("Updated", updatedGame.Title);
+    }
+
+    [Fact]
+    public void Delete_ReturnsFalse_WhenGameDoesNotExist()
+    {
+        var service = new InMemoryGameService();
+
+        var deleted = service.Delete(99999);
+
+        Assert.False(deleted);
+    }
+
 }
