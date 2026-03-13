@@ -55,7 +55,7 @@ internal sealed class InMemoryGameService : IGameService
         new Game(47, "Genshin Impact", "Action RPG", "Mobile", 9.99m),
         new Game(48, "Clash Royale", "Strategy", "Mobile", 4.99m),
         new Game(49, "Call of Duty: Warzone", "Battle royale", "PC", 19.99m),
-        new Game(50, "Street Fighter 6", "Fighting", "PlayStation 5", 59.99m)
+        new Game(50, "Street Fighter 6", "Fighting", "PlayStation 5", 54.99m)
     ];
 
     private readonly Lock gamesLock = new();
