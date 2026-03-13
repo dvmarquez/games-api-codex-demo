@@ -18,17 +18,36 @@ cd games-api-codex-demo
 ## Build
 
 ```bash
-dotnet build GamesApi/GamesApi.csproj
+dotnet build src/GamesApi/GamesApi.csproj
 ```
 
 ## Run the API
 
 ```bash
-cd GamesApi
+cd src/GamesApi
 dotnet run
 ```
 
 By default, ASP.NET Core prints URLs like `http://localhost:5000` or `https://localhost:7000` in the console.
+
+## Run with Docker
+
+Build the container image from the repository root:
+
+```bash
+docker build -t games-api:local .
+```
+
+Run the container and map port `8080`:
+
+```bash
+docker run --rm -p 8080:8080 games-api:local
+```
+
+Then open:
+
+- Swagger JSON: `http://localhost:8080/swagger/v1/swagger.json`
+- Swagger UI: `http://localhost:8080/swagger`
 
 ## Swagger / OpenAPI
 
@@ -143,7 +162,7 @@ Content-Type: application/problem+json; charset=utf-8
 ## Run tests
 
 ```bash
-dotnet test GamesApi.Tests/GamesApi.Tests.csproj
+dotnet test tests/GamesApi.Tests/GamesApi.Tests.csproj
 ```
 
 This runs the xUnit integration tests for the minimal API endpoints and validator-focused tests for `CreateGameRequestValidator`.
