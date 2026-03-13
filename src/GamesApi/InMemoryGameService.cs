@@ -1,3 +1,5 @@
+using System.Threading;
+
 namespace GamesApi;
 
 internal sealed class InMemoryGameService : IGameService
@@ -11,15 +13,34 @@ internal sealed class InMemoryGameService : IGameService
         new Game(5, "Stardew Valley", "Simulation", "PC")
     ];
 
-    public IReadOnlyList<Game> GetAll() => games;
+    private readonly Lock gamesLock = new();
+    private int nextId = 5;
 
-    public Game? GetById(int id) => games.FirstOrDefault(game => game.Id == id);
+    public IReadOnlyList<Game> GetAll()
+    {
+        lock (gamesLock)
+        {
+            return games.ToList();
+        }
+    }
+
+    public Game? GetById(int id)
+    {
+        lock (gamesLock)
+        {
+            return games.FirstOrDefault(game => game.Id == id);
+        }
+    }
 
     public Game Create(CreateGameRequest request)
     {
-        var nextId = games.Count == 0 ? 1 : games.Max(game => game.Id) + 1;
-        var game = new Game(nextId, request.Title!, request.Genre!, request.Platform!);
-        games.Add(game);
+        var id = Interlocked.Increment(ref nextId);
+        var game = new Game(id, request.Title!, request.Genre!, request.Platform!);
+
+        lock (gamesLock)
+        {
+            games.Add(game);
+        }
 
         return game;
     }
