@@ -11,19 +11,30 @@ public sealed class CreateGameRequestValidatorTests
     [Fact]
     public void Validate_HasErrors_WhenRequiredFieldsAreMissing()
     {
-        var request = new CreateGameRequest(null, null, null);
+        var request = new CreateGameRequest(null, null, null, null);
 
         var result = validator.TestValidate(request);
 
         result.ShouldHaveValidationErrorFor(x => x.Title);
         result.ShouldHaveValidationErrorFor(x => x.Genre);
         result.ShouldHaveValidationErrorFor(x => x.Platform);
+        result.ShouldHaveValidationErrorFor(x => x.Price);
+    }
+
+    [Fact]
+    public void Validate_HasErrors_WhenPriceIsNotGreaterThanZero()
+    {
+        var request = new CreateGameRequest("Portal 2", "Puzzle", "PC", 0);
+
+        var result = validator.TestValidate(request);
+
+        result.ShouldHaveValidationErrorFor(x => x.Price);
     }
 
     [Fact]
     public void Validate_DoesNotHaveErrors_WhenRequestIsValid()
     {
-        var request = new CreateGameRequest("Portal 2", "Puzzle", "PC");
+        var request = new CreateGameRequest("Portal 2", "Puzzle", "PC", 9.99m);
 
         var result = validator.TestValidate(request);
 

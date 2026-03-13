@@ -77,7 +77,8 @@ Content-Type: application/json; charset=utf-8
     "id": 1,
     "title": "The Legend of Zelda: Breath of the Wild",
     "genre": "Action-adventure",
-    "platform": "Nintendo Switch"
+    "platform": "Nintendo Switch",
+    "price": 59.99
   }
 ]
 ```
@@ -98,7 +99,8 @@ Content-Type: application/json; charset=utf-8
   "id": 1,
   "title": "The Legend of Zelda: Breath of the Wild",
   "genre": "Action-adventure",
-  "platform": "Nintendo Switch"
+  "platform": "Nintendo Switch",
+  "price": 59.99
 }
 ```
 
@@ -122,7 +124,8 @@ curl -i http://localhost:5000/games \
   -d '{
     "title": "Celeste",
     "genre": "Platformer",
-    "platform": "PC"
+    "platform": "PC",
+    "price": 19.99
   }'
 ```
 
@@ -137,7 +140,8 @@ Location: /games/6
   "id": 6,
   "title": "Celeste",
   "genre": "Platformer",
-  "platform": "PC"
+  "platform": "PC",
+  "price": 19.99
 }
 ```
 
@@ -167,7 +171,8 @@ curl -i -X PUT http://localhost:5000/games/1 \
   -d '{
     "title": "The Legend of Zelda: Tears of the Kingdom",
     "genre": "Action-adventure",
-    "platform": "Nintendo Switch"
+    "platform": "Nintendo Switch",
+    "price": 59.99
   }'
 ```
 
@@ -181,7 +186,8 @@ Content-Type: application/json; charset=utf-8
   "id": 1,
   "title": "The Legend of Zelda: Tears of the Kingdom",
   "genre": "Action-adventure",
-  "platform": "Nintendo Switch"
+  "platform": "Nintendo Switch",
+  "price": 59.99
 }
 ```
 
