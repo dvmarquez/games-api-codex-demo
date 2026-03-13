@@ -159,6 +159,68 @@ Content-Type: application/problem+json; charset=utf-8
 }
 ```
 
+### `PUT /games/1`
+
+```bash
+curl -i -X PUT http://localhost:5000/games/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "The Legend of Zelda: Tears of the Kingdom",
+    "genre": "Action-adventure",
+    "platform": "Nintendo Switch"
+  }'
+```
+
+Sample success response:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+  "id": 1,
+  "title": "The Legend of Zelda: Tears of the Kingdom",
+  "genre": "Action-adventure",
+  "platform": "Nintendo Switch"
+}
+```
+
+Sample validation error response:
+
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: application/problem+json; charset=utf-8
+
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": {
+    "Title": [
+      "'Title' must not be empty."
+    ]
+  }
+}
+```
+
+### `DELETE /games/1`
+
+```bash
+curl -i -X DELETE http://localhost:5000/games/1
+```
+
+Sample success response:
+
+```http
+HTTP/1.1 204 No Content
+```
+
+Sample not found response:
+
+```http
+HTTP/1.1 404 Not Found
+```
+
 ## Run tests
 
 ```bash
